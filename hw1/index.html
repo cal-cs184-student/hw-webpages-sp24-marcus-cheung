@@ -1,7 +1,7 @@
 <html>
 	<head>
 	</head>
-	<body style = "text-align: center;">
+	<body style = "text-align: left;">
 		<p>
 		Task 1:
 		I first began by preprocessing the triangle vertices to be ordered in clockwise direction. This would allow the computed normal vectors to be pointing inwards. Then I compute the tightest bounding box around the triangle by checking for the min and max values for x and y coordinates of the vertices. Finally, we iterate through every point in this bounding box and perform a line test to check if that point is within the triangle. If it is, we fill in the pixel with the given color, otherwise do nothing. This is atleast the same as checking each sample within the bounding box in terms of efficiency.
