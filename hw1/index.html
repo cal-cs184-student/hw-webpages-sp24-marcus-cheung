@@ -32,7 +32,7 @@
 
 		<p>
 		Task 5:
-		The pixel sampling for texture mapping follows a similar algorithm to the other rasterization methods. The difference however is that we must use the barycentric coordinates of the point to compute the corresponding pixel on the texture plane. We do this by taking the dot product between the barycentric coordinates and the u and v vectors to find our point in the u v vector space. We then use this to sample from the texture map and fill in the color for that x, y point in the normal image plane. Nearest sampling simply finds the closest pixel to the computed sample coordinates since these coordinates are not guaranteed to be integer valid due to differences between the texture and image planes. Bilinear attempts to retain more texture information by accounting for this imprecise sampling and using distance and color of the four closest pixels to compute a weighted average. This is done by first performing a lerp between pairs of points horizontally, then taking the two results computing another lerp to find the final weighted average. 
+		The pixel sampling for texture mapping follows a similar algorithm to the other rasterization methods. The difference however is that we must use the barycentric coordinates of the point to compute the corresponding pixel on the texture plane. We do this by taking the dot product between the barycentric coordinates and the u and v vectors to find our point in the u v vector space. We then use this to sample from the texture map and fill in the color for that x, y point in the normal image plane. Nearest sampling simply finds the closest pixel to the computed sample coordinates since these coordinates are not guaranteed to be integer valid due to differences between the texture and image planes. Bilinear attempts to retain more texture information by accounting for this imprecise sampling and using distance and color of the four closest pixels to compute a weighted average. This is done by first performing a lerp between pairs of points horizontally, then taking the two results computing another lerp to find the final weighted average. Looking closely we can see that the latter two images (16 samples/pixel) have blurring that  makes it look more natural. Bilinear filtering seems to produce more varied colors and less blurred averaging effect, perhaps retaining more information.
 		</p>
 		<img src="5_1_near.png" alt="5" style="width:400px;height:400px;">
 		<img src="5_1_bilinear.png" alt="5" style="width:400px;height:400px;">
@@ -43,9 +43,9 @@
 		Task 6:
 		To implement level sampling, I first had to implement the get_level method. This would allow me to compute the best level based on the rate of change between the current sampling pixel and its surrounding pixels. This allows me to improve rendering quality using textures of different resolutions wherever appropriate. For nearest sampling, I simply round to the nearest level clamped between 1 and the max mip level. For L_Linear, I compute a weighted average between the two closest levels (floor and ceil) with a lerp. This sampling method has the most overhead as it requires an extra computation. The next in speed would be L_Nearest which also requires us to compute the level. Finally, L_Zero is the fastest since we simply pass in level 0 to our pixel sampling method.
 		</p>
-		<img src="0_near.png" alt="6" style="width:400px;height:400px;">
-		<img src="0linear.png" alt="6" style="width:400px;height:400px;">
-		<img src="near_near.png" alt="6" style="width:400px;height:400px;">
-		<img src="near_linear.png" alt="6" style="width:400px;height:400px;">
+		<img src="zero_near.png" alt="6" style="width:400px;height:400px;">
+		<img src="zero_linear.png" alt="6" style="width:400px;height:400px;">
+		<img src="nearest_nearest.png" alt="6" style="width:400px;height:400px;">
+		<img src="nearest_linear.png" alt="6" style="width:400px;height:400px;">
 	</body>
 </html>
