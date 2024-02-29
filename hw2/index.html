@@ -82,6 +82,29 @@
 			<figcaption>Pot after flipping some edges</figcaption>
 		</figure>
 	</div>
+
+
+	<h3 align="middle"> Part 5</h3>
+	<p>
+		To implement edge-splitting, I began with a similar process to part 4 by writing out all reassignments and new mesh elements. Firstly I check if I am on a boundary edge, then effectively abort since this edge is not splittable. Otherwise, the algorithm begins by declaring all the pointers associated with the splitting edge. I then instantiate new mesh elements to be added in which consists of 6 half edges, 3 edges, one new midpoint vertice, and 2 faces. I then reassign all the pointers in a similar fashion to part 4 ensuring I correctly flag them as new elements when appropriate which would later be essential for loop subdivision to work properly.
+	</p>
+
+	<div style="display: flex; flex-wrap: wrap;">
+		<figure>
+			<img src = "assets/basepot3.png" align="middle" width = "380px">
+			<figcaption>Base Pot</figcaption>
+		</figure>
+		<figure>
+			<img src = "assets/potsplit.png" align="middle" width = "380px">
+			<figcaption>Pot after splitting edges</figcaption>
+		</figure>
+		<figure>
+			<img src = "assets/potsplitflip.png" align="middle" width = "380px">
+			<figcaption>Pot after splitting and flipping edges</figcaption>
+		</figure>
+	</div>
+
+	<h3 align="middle"> Part 6</h3>
 	
 
 
