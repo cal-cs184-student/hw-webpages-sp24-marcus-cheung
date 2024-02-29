@@ -105,7 +105,44 @@
 	</div>
 
 	<h3 align="middle"> Part 6</h3>
-	
+	<p>
+		To implement loop subdivision, I followed the given pseudo code step by step. Firstly, I iterated through the edges and recomputed new positions for every vertex. I do this by finding relative vertices A, B, C, D to the edge and computing 3/8 * (A + B) + 1/8 * (C + D) and saving it to the edge “newPosition” instance variable. I did make a small mistake in this step by incorrectly getting the pointer to vertex D which resulted in strange blob like asymmetries as I ran the sub division up sampling. Then I compute updated positions for all old vertices following the (1 - n * u) * original_position + u * original_neighbor_position_sum formula and iterating across all mesh vertices. Then I split the edges making sure that it only gets split over original edges. Next I flip over edges between new and old vertices. One issue I ran into here that took a while to debug was the fact that this operation should only be done on new edges. Without this condition check, I ended up flipping when I shouldn’t have and created strange artifacts. Finally I update the vertex positions by setting its position to be the saved newPosition. As we run the algorithm sharp corners and edges seem to smooth out and become round. In meshes such as cube.dae, asymmetries in the beginning edge formation result in a very not cubelike shape as we upsample. To mitigate this we can perform some splits to create a more symmetric edge structure on the cube. With this preprocessing, as we upsample, the cube appears to subdivide more symmetrically. This is likely because as we upsample, we end up with non-uniform subdivisions for a non uniform starting topology, which propagate into asymmetries after full evaluation. Pre splitting will increase the starting uniformity and thus allow our subdivisions to be more uniform. See the images below to see this in action.
+	</p>
+	<div style="display: flex; flex-wrap: wrap;">
+		<figure>
+			<img src = "assets/asymcube0.png" align="middle" width = "380px">
+			<figcaption>Base cube</figcaption>
+		</figure>
+		<figure>
+			<img src = "assets/asymcube1.png" align="middle" width = "380px">
+			<figcaption>Cube showing asmmetry after one iteration of subdivision.</figcaption>
+		</figure>
+		<figure>
+			<img src = "assets/asymcube2.png" align="middle" width = "380px">
+			<figcaption>After a second iteration of subdivision it looks even less cube like</figcaption>
+		</figure>
+	</div>
+	<br>
+
+	<div style="display: flex; flex-wrap: wrap;">
+		<figure>
+			<img src = "assets/precube0.png" align="middle" width = "380px">
+			<figcaption>Preprocessed Cube</figcaption>
+		</figure>
+		<figure>
+			<img src = "assets/precube1.png" align="middle" width = "380px">
+			<figcaption>One iteration: Cube appears relatively more cube like and symmetric.</figcaption>
+		</figure>
+		<figure>
+			<img src = "assets/precube2.png" align="middle" width = "380px">
+			<figcaption>Second iteration: Subdivision seems to round out but maintain a cubelike structure</figcaption>
+		</figure>
+		<figure>
+			<img src = "assets/precube3.png" align="middle" width = "380px">
+			<figcaption>Third iteration: Subdivision happens uniformly again and maintains cubelike structure</figcaption>
+		</figure>
+	</div>
+
 
 
 
