@@ -10,31 +10,31 @@
 		De Casteljau’s algorithm is a recursive algorithm for computing the position of a point on a Bezier curve. Given n control points, we iteratively recurse and perform linear interpolations between points evaluating on some fractional length parameter t until we find the point parametrized on t. Doing this across different t values will yield our Bezier curve. To implement this algorithm, I make a helper function EvaluteStep() which will perform a single step of the interpolation on the control points parameterized on fixed value t. By iteratively calling this function I can recurse through the steps until convergence. Below is an example of this process using 6 control points.
 	</p>
 	<figure>
-		<img src = "assets/curve0.png" align="middle" width = "300px">
+		<img src = "assets/curve0.png" align="middle" width = "300px" float="left">
 		<figcaption>Iteration 0</figcaption>
 	</figure>
 	<figure>
-		<img src = "assets/curve1.png" align="middle" width = "300px">
+		<img src = "assets/curve1.png" align="middle" width = "300px" float="left">
 		<figcaption>Iteration 1</figcaption>
 	</figure>
 	<figure>
-		<img src = "assets/curve2.png" align="middle" width = "300px">
+		<img src = "assets/curve2.png" align="middle" width = "300px" float="left">
 		<figcaption>Iteration 2</figcaption>
 	</figure>
 	<figure>
-		<img src = "assets/curve3.png" align="middle" width = "300px">
+		<img src = "assets/curve3.png" align="middle" width = "300px" float="left">
 		<figcaption>Iteration 3</figcaption>
 	</figure>
 	<figure>
-		<img src = "assets/curve4.png" align="middle" width = "300px">
+		<img src = "assets/curve4.png" align="middle" width = "300px" float="left">
 		<figcaption>Iteration 4</figcaption>
 	</figure>
 	<figure>
-		<img src = "assets/curve5.png" align="middle" width = "300px">
+		<img src = "assets/curve5.png" align="middle" width = "300px" float="left">
 		<figcaption>Iteration 5</figcaption>
 	</figure>
 	<figure>
-		<img src = "assets/altcurve.png" align="middle" width = "300px">
+		<img src = "assets/altcurve.png" align="middle" width = "300px" float="left">
 		<figcaption>Different converged 6 control point curve</figcaption>
 	</figure>
 		
