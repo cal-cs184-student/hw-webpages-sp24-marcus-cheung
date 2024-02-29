@@ -41,6 +41,32 @@
 	</div>
 	
 	<h3 align="middle"> Part 2</h3>
+	<p>
+		The de Casteljau algorithm can be used for Bezier surfaces by defining the surfaces as the surface created by sliding a curve parametrized on u and v. Thus we can define a surface with a grid of control points and interpolate across the sub grids using the algorithm and use this to evaluate the surface. To implement this I begin with a similar helper function to part 1 but one that operates on 3D vectors. With this single iteration evaluateStep(), I can create a higher level helper function that evaluates a point on the curve on some param t called evaluate1D. This is finally called by the evaluate() function which evaluates a Bezier path parameterized on (u, v).
+	</p>
+	<figure>
+		<img src = "assets/basepot.png" align="middle" width = "380px">
+		<figcaption>teapot.bez</figcaption>
+	</figure>
+
+	<br>
+	<h2 align="middle"> Section II</h2>
+	<h3 align="middle"> Part 2</h3>
+	<p>
+		To implement area-weighted vertex normals, I simply loop through half edges in such a way to traverse across the mesh faces surrounding a given vertex. As I iterate through, I sum the normal vector weighted by the area of the face computed by taking half the cross product between two vectors between the face defining vertices. Finally I normalize this summed 3D vector to produce my unit normal vector. Below we can see this operation in action for Phong shading.
+	</p>
+	<div style="display: flex; flex-wrap: wrap;">
+	<figure>
+		<img src = "assets/basepot2.png" align="middle" width = "380px">
+		<figcaption>Shaded with face normals</figcaption>
+	</figure>
+	<figure>
+		<img src = "assets/basepot3.png" align="middle" width = "380px">
+		<figcaption>Phong shading</figcaption>
+	</figure>
+	</div>
+
+
 
 
 	</div>
