@@ -56,17 +56,33 @@
 		To implement area-weighted vertex normals, I simply loop through half edges in such a way to traverse across the mesh faces surrounding a given vertex. As I iterate through, I sum the normal vector weighted by the area of the face computed by taking half the cross product between two vectors between the face defining vertices. Finally I normalize this summed 3D vector to produce my unit normal vector. Below we can see this operation in action for Phong shading.
 	</p>
 	<div style="display: flex; flex-wrap: wrap;">
-	<figure>
-		<img src = "assets/basepot2.png" align="middle" width = "380px">
-		<figcaption>Shaded with face normals</figcaption>
-	</figure>
-	<figure>
-		<img src = "assets/smoothpot.png" align="middle" width = "380px">
-		<figcaption>Phong shading</figcaption>
-	</figure>
+		<figure>
+			<img src = "assets/basepot2.png" align="middle" width = "380px">
+			<figcaption>Shaded with face normals</figcaption>
+		</figure>
+		<figure>
+			<img src = "assets/smoothpot.png" align="middle" width = "380px">
+			<figcaption>Phong shading</figcaption>
+		</figure>
 	</div>
 
 	<h3 align="middle"> Part 4</h3>
+
+	<p>
+		To implement the edge-flip, I begin by declaring all pointers associated with my starting edge (half edges, vertices, edges, faces). Then follows a series of complicated pointer reassignments that I figured out by manually writing out all reassignments that should occur for each element in the mesh. One small mistake I made was while writing out all the pointers, I mistakenly named one of the edges e0 which broke the code since we should not overwrite this variable. Below you can see some instances of edge flipping on the teapot mesh.
+	</p>
+
+	<div style="display: flex; flex-wrap: wrap;">
+		<figure>
+			<img src = "assets/basepot3.png" align="middle" width = "380px">
+			<figcaption>Base Pot</figcaption>
+		</figure>
+		<figure>
+			<img src = "assets/potflip.png" align="middle" width = "380px">
+			<figcaption>Pot after flipping some edges</figcaption>
+		</figure>
+	</div>
+	
 
 
 
