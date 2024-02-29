@@ -1,11 +1,11 @@
 <html>
 	<head>
 	</head>
-	<h1 align="middle"> Homework 2: Mesh Editor</h1>>
+	<h1 align="middle"> Homework 2: Mesh Editor</h1>
 	<br>
 	<div>
-	<h2 align="middle"> Section I</h2>>
-	<h3 align="middle"> Part 1</h3>>
+	<h2 align="middle"> Section I</h2>
+	<h3 align="middle"> Part 1</h3>
 	<p>
 		De Casteljau’s algorithm is a recursive algorithm for computing the position of a point on a Bezier curve. Given n control points, we iteratively recurse and perform linear interpolations between points evaluating on some fractional length parameter t until we find the point parametrized on t. Doing this across different t values will yield our Bezier curve. To implement this algorithm, I make a helper function EvaluteStep() which will perform a single step of the interpolation on the control points parameterized on fixed value t. By iteratively calling this function I can recurse through the steps until convergence. Below is an example of this process using 6 control points.
 	</p>
