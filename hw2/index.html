@@ -51,7 +51,7 @@
 
 	<br>
 	<h2 align="middle"> Section II</h2>
-	<h3 align="middle"> Part 2</h3>
+	<h3 align="middle"> Part 3</h3>
 	<p>
 		To implement area-weighted vertex normals, I simply loop through half edges in such a way to traverse across the mesh faces surrounding a given vertex. As I iterate through, I sum the normal vector weighted by the area of the face computed by taking half the cross product between two vectors between the face defining vertices. Finally I normalize this summed 3D vector to produce my unit normal vector. Below we can see this operation in action for Phong shading.
 	</p>
@@ -61,10 +61,13 @@
 		<figcaption>Shaded with face normals</figcaption>
 	</figure>
 	<figure>
-		<img src = "assets/basepot3.png" align="middle" width = "380px">
+		<img src = "assets/smoothpot.png" align="middle" width = "380px">
 		<figcaption>Phong shading</figcaption>
 	</figure>
 	</div>
+
+	<h3 align="middle"> Part 4</h3>
+
 
 
 
