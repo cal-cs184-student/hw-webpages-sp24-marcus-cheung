@@ -2,6 +2,189 @@
 	<head>
 	</head>
 	<body>
-		Homework 3 index.html here
+		<p>
+			https://cal-cs184-student.github.io/hw-webpages-sp24-marcus-cheung/hw3/index.html
+		</p>
+		<p>
+			In Project 3 we implement ray tracing to render scenes. The algorithm is split into 5 parts, some to directly do the computations, and others to make the pipeline as a whole more efficient.
+		</p>
+
+		<h2>Part 1</h2>
+		<p>Ray generation: <br/>
+			We begin by transforming a pixel coordinate on the image plane (between 0 and 1) into a normalized coordinate frame (often [-1, 1]). This prepares it for the image frame, where the camera's field of view (hFov and vFov) is considered. Here, scaling and translation define which part of the scene the ray will see. This essentially places the normalized pixel plane onto the image frame, determining how rays are cast through the field of view for each pixel. With the image frame coordinates, we can define a ray in camera space, originating from the camera and traveling towards the virtual camera sensor based on the original image coordinate. Finally, the ray is transformed from camera space to world space by applying the camera's rotation and translation, and normalizing the direction vector for accuracy.</p>
+			
+		<p>For triangle intersection, we compute the plane the triangle lays in. Then we can see if where the ray intersects the plane is within the triangle. I used Möller-Trumbore for my triangle intersection algorithm. We convert the ray-plane intersection to barycentric coordinates to see if it is within the triangle and check that t-intersection value is within its bounds.</p>
+			
+		<p>For sphere intersection, I use the formulas shown in class to compute where the ray meets the sphere. If for any reason a computation is indeterminate (discriminant < 0 or a == 0) or if the computed t-intersection value is not within bounds we can determine that the ray does not intersect the sphere.</p>
+		
+		<img src="./images/banana2.png" align="middle" width = "380px"/>
+		<img src="./images/bench.png" align="middle" width = "380px"/>
+
+		<h2>Part 2</h2>
+		<p>My BVH construction algorithm consisted of three main steps, enumerating centroids, computing the best axis on surface area as a heuristic and splitting on the median, and finally recursing on the best split. I begin by creating a vector of centroid and primitive pairs. I then iterate through the three possible axis and (on a copy) sort the vector by that respective axis. Then, using the midpoint (size//2) I can compute the combined surface area of the split by calling the expand function and computing the surface area of the final bounding box for the left and right split. If this surface area is smaller than the previously observed axis, I update my centroids with the sorted version. Finally, I can easily perform the split by halving my vector which is now sorted on the best heuristic axis and recurse appropriately. Implementing BVH made my render time incredibly faster. For a large dae file such as maxplanck.dae, BVH allowed me to render in only 23.5761s, whereas before on my slow computer it would take what I would estimate to be an hour. For cow.dae it took 2.9628s with BVH compared to ~685s without.</p>
+		<img src="./images/planck.png" align="middle" width = "380px"/>
+		<img src="./images/cow.png" align="middle" width = "380px"/>
+		
+		<h2>Part 3</h2>
+		<p>Hemisphere: <br/>
+		To compute the lighting at an intersection sampling uniformly in a hemisphere, we iteratively perform samples from the objects bsdf at that intersection and compute the irradiance arriving at that point. If the sample intersects the bvh we get the emission at that intersection and add it weighted by its probability to our total. Finally, we normalize by the number of samples taken to effectively average on all the samples.
+		</p>
+		<p>
+		Importance:<br/>
+		We iterate through all the lights in the scene and sample from them individually. We perform ns_area_light number of samples if the light isn’t a delta light otherwise just 1. As we sample the light source we check to see if the resultant ray will intersect any bounding boxes of geometry in the scene thus being occluded. Then like hemisphere sampling we add the weighted contribution to our total which gets normalized by the number of sampling iterations for that respective light source.
+		</p>
+		<p>
+			Images rendered with hemisphere:			
+		</p>
+			<figure><img src="./images/bunny_hemisphere.png" align="middle" width = "380px"/></figure>
+		<p>
+			Images rendered with importance:	
+		</p>
+		
+		<figure><img src="./images/bunny_64.png"/></figure>
+		<p>There is a definite difference in noisiness for renders of similar hyper parameters depending on the sampling technique used. Non hemisphere sampling seems to produce much less noise at all sampling rates being substantially smoother than hemisphere sampling renderings.</p>
+
+		<p>Varying light rays:</p>
+		<figure>
+			<img src="./images/bunny_1.png" align="middle" width = "380px"/>
+			<figcaption>1 light ray</figcaption>
+		</figure>
+		
+		<figure>
+			<img src="./images/bunny_4.png" align="middle" width = "380px"/>
+			<figcaption>4 light rays</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/bunny_16.png" align="middle" width = "380px"/>
+			<figcaption>16 light rays</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/bunny_64.png" align="middle" width = "380px"/>
+			<figcaption>64 light rays</figcaption>
+		</figure>
+
+		<p>We notice the noise decreases substantially as number of light rays increases and the rendering smoothes out. This is most noticeable in the shadows casted on the bunny’s body as the begin very pixelated but have no noticeable noise at -l 64.</p>
+			
+		<h2>Part 4</h2>
+		<p>The indirect lighting algorithm involves recursing through the potential path of a light ray and computing the resulting contributions from each bounce. As we recurse we first add the contribution of the current ray to the total with the one bounce helper. Then through either max depth capping or russian roulette probabilistic continuation we decide to recurse and compute the next ray. This is done by sampling a new intersection point from the current ray bsdf.</p>
+		<figure>
+			<img src="./images/bunny_direct_illumination.png" align="middle" width = "380px"/>
+			<figcaption>Direct Illumination</figcaption>
+		</figure>
+
+		<figure>
+			<img src="./images/bunny_indirect_illumination.png" align="middle" width = "380px"/>
+			<figcaption>Global Illumination</figcaption>
+		</figure>
+		
+		<p>Below are some renders with isAccumBounces=false, varied by max_ray_depth</p>
+		<figure>
+			<img src="./images/p41_bunny_m0.png" align="middle" width = "380px"/>
+			<figcaption>m = 0</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p41_bunny_m1.png" align="middle" width = "380px"/>
+			<figcaption>m = 1</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p41_bunny_m2.png" align="middle" width = "380px"/>
+			<figcaption>m = 2</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p41_bunny_m3.png" align="middle" width = "380px"/>
+			<figcaption>m = 3</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p41_bunny_m4.png" align="middle" width = "380px"/>
+			<figcaption>m = 4</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p41_bunny_m5.png" align="middle" width = "380px"/>
+			<figcaption>m = 5</figcaption>
+		</figure>
+		<p>By setting isAccumBounces to false we can see the contributions of each successive bounce of light. The second bounce appears to be such that it lights the underside of the bunny and lower area of the image. This likely largely contributes to the underlighting to the complete render. The third bounce doesn’t seem to have a specific area emphasized except maybe slightly in the bottom room corners and below the bunny rear. As such it also contributes to the overall completeness of the lighting for a full render.</p>
+		
+
+		<p>Below are images rendered with russian roulette varied by max_ray_depth</p>
+		<figure>
+			<img src="./images/p41_bunny_m0.png" align="middle" width = "380px"/>
+			<figcaption>m = 0</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p42_bunny_m1.png" align="middle" width = "380px"/>
+			<figcaption>m = 1</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p42_bunny_m2.png" align="middle" width = "380px"/>
+			<figcaption>m = 2</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p42_bunny_m2.png" align="middle" width = "380px"/>
+			<figcaption>m = 3</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p42_bunny_m2.png" align="middle" width = "380px"/>
+			<figcaption>m = 4</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p43_bunny_m100.png" align="middle" width = "380px"/>
+			<figcaption>m = 100</figcaption>
+		</figure>
+		<p>We notice that the marginal difference as we increase the max ray depth past 1 drops off quite fast. The only real difference is slightly brighter corners.</p>
+
+		<p>Below are images rendered with 4 light rays and varied by sample-per-pixel rates</p>
+		<figure>
+			<img src="./images/p44_bunny_m0.png" align="middle" width = "380px"/>
+			<figcaption>s=1</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p44_bunny_m1.png" align="middle" width = "380px"/>
+			<figcaption>s=2</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p44_bunny_m2.png" align="middle" width = "380px"/>
+			<figcaption>s=4</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p44_bunny_m3.png" align="middle" width = "380px"/>
+			<figcaption>s=8</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p44_bunny_m4.png" align="middle" width = "380px"/>
+			<figcaption>s=16</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p44_bunny_m5.png" align="middle" width = "380px"/>
+			<figcaption>s=64</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p44_bunny_m6.png" align="middle" width = "380px"/>
+			<figcaption>s=1024</figcaption>
+		</figure>
+
+		<h2>Part 5</h2>
+		<p>Adaptive sampling allows us to dynamically determine the number of samples we will perform on a pixel. This allows us to significantly reduce unnecessary overhead and render more efficiently. To implement this, we adjust the raytrace_pixel function. As we iterate through the samples up to a “num_samples/nsaa” amount, we check if illuminance convergence has occurred by constructing a confidence interval periodically (in batches) . If it has then we can break the loop as that pixel has had sufficient enough samples. </p>
+		<figure>
+			<img src="./images/p43_bunny_m100.png" align="middle" width = "380px"/>
+			<figcaption>Bunny render</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/p43_bunny_m100_rate.png" align="middle" width = "380px"/>
+			<figcaption>Bunny Rate Image</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/spheres.png" align="middle" width = "380px"/>
+			<figcaption>Spheres render</figcaption>
+		</figure>
+		<figure>
+			<img src="./images/spheres_rate.png" align="middle" width = "380px"/>
+			<figcaption>Spheres Rate Image</figcaption>
+		</figure>
+
+
+
+	
+	
+	
 	</body>
 </html>
