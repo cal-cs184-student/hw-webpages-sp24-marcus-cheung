@@ -12,6 +12,9 @@
 			Project 4 involves simulating the physics and shading of a piece of cloth and how it interacts with obstacles and other objects. The cloth is comprised of a grid of point masses joined together by springs. Interactions with other objects and itself is done by computing collisions and adjusting appropriately in regards to laws of physics.
 		</p>
 		<h2>Part 1</h2>
+		<p>
+			To implement the grid the program iteratively places point masses into a grid like formation. Then three types of springs join together the point masses between neighbors. Bending and structural are placed between direct up and down, left and right neighbors. On the other hand shear are placed diagonally. Imagine a subgrid consisting of a square of the 4 point masses. The shear spring would go between the top right and the bottom left, and the top left and bottom right. Additional metadata is also included in the point masses such as if it is pinned or not. This will be important in later parts where the point mass is required to not move.
+		</p>
 		<p>Below are some images of the cloth wireframe split into its components.</p>
 		<figure>
 			<img src="./p4/1no_shear.png" align="middle" width = "380px"/>
@@ -74,6 +77,9 @@
 
 
 		<h2>Part 3</h2>
+		<p>
+			To implement collisions with other objects, we iterate through the point masses and check if the point masses will cross the surface boundary of the primitives then apply the normal force of the object (plane or sphere)
+		</p>
 		<p>
 			Below you’ll see screenshots of the final resting state of the cloth in scene/sphere.json varied by ks value. We notice at higher ks values the cloth doesn’t droop as much around the sphere. For lower values it will droop much lower. Since the ks value represents our spring stiffness, this is expected. Lower stiffness should allow the cloth more give and make it droopier.
 		</p>
