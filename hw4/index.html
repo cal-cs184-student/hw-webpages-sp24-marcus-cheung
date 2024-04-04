@@ -2,6 +2,234 @@
 	<head>
 	</head>
 	<body>
-		Homework 4 index.html here
+		<p>
+			https://cal-cs184-student.github.io/hw-webpages-sp24-marcus-cheung/hw4/index.html
+		</p>
+
+		<h1>Project 4</h1>
+
+		<p>
+			Project 4 involves simulating the physics and shading of a piece of cloth and how it interacts with obstacles and other objects. The cloth is comprised of a grid of point masses joined together by springs. Interactions with other objects and itself is done by computing collisions and adjusting appropriately in regards to laws of physics.
+		</p>
+		<h2>Part 1</h2>
+		<p>Below are some images of the cloth wireframe split into its components.</p>
+		<figure>
+			<img src="./p4/1no_shear.png" align="middle" width = "380px"/>
+			<figcaption>No Shear (bending and structural)<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/1only_shear.png" align="middle" width = "380px"/>
+			<figcaption>Only Shear<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/1all constraints.png" align="middle" width = "380px"/>
+			<figcaption>All constraints<figcaption>
+		</figure>
+		<h2>Part 2</h2>
+		<p>Experimenting with parameters I noticed the following:
+			<br/><br/>
+			At high ks, the cloth is much more rigid, whereas at lower values it seems to have more give and slack. This is apparent in the final resting state shown below. Intuitively this checks out since we are increasing spring stiffness and thus the cloth as a whole should be more stiff.
+		</p>
+		<figure>
+			<img src="./p4/2pin4_rest.png" align="middle" width = "380px"/>
+			<figcaption>scene/pinned4.json in its final resting state<figcaption>
+		</figure>
+
+
+		<p>
+			At high ks, the cloth is much more rigid, whereas at lower values it seems to have more give and slack. This is apparent in the final resting state shown below. Intuitively this checks out since we are increasing spring stiffness and thus the cloth as a whole should be more stiff.</p>
+		</p>
+		<figure>
+			<img src="./p4/2high_ks_10000.png" align="middle" width = "380px"/>
+			<figcaption>High ks (10000N/m)<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/2low_ks_10.png" align="middle" width = "380px"/>
+			<figcaption>High ks (10N/m)<figcaption>
+		</figure>
+
+
+		<p>
+			At high density there seems to be a similar effect as high ks and vice versa for lower values. This logically makes sense since with a greater density of point masses we have greater mass, and thus expect the cloth to sag proportionally more.
+		</p>
+		<figure>
+			<img src="./p4/2high_density_100.png" align="middle" width = "380px"/>
+			<figcaption>High density (100g/m^2)<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/2low_density_1.png" align="middle" width = "380px"/>
+			<figcaption>High density (1g/m^2)<figcaption>
+		</figure>
+		<p>
+			The effect of damping seems to be more apparent in the lifecycle of the simulation. At high values the cloth approaches its final resting state quite rapidly. However, at the lowest (0) the cloth takes a much longer time to reach a final resting state, swaying back and forth.
+		</p>
+		<figure>
+			<img src="./p4/2high_damp_1.png" align="middle" width = "380px"/>
+			<figcaption>High damping (1)<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/2low_damp_0.png" align="middle" width = "380px"/>
+			<figcaption>High density (0)<figcaption>
+		</figure>
+
+
+		<h2>Part 3</h2>
+		<p>
+			Below you’ll see screenshots of the final resting state of the cloth in scene/sphere.json varied by ks value. We notice at higher ks values the cloth doesn’t droop as much around the sphere. For lower values it will droop much lower. Since the ks value represents our spring stiffness, this is expected. Lower stiffness should allow the cloth more give and make it droopier.
+		</p>
+		<figure>
+			<img src="./p4/3_ks_50000.png" align="middle" width = "380px"/>
+			<figcaption>High ks (50000N/m)<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/3_ks_5000.png" align="middle" width = "380px"/>
+			<figcaption>Medium ks (5000N/m)<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/3_ks_500.png" align="middle" width = "380px"/>
+			<figcaption>Low ks (500N/m)<figcaption>
+		</figure>
+		<p>Below is the cloth resting on the plane</p>
+		<figure>
+			<img src="./p4/3_plane.png" align="middle" width = "380px"/>
+			<figcaption>Resting on Plane<figcaption>
+		</figure>
+
+
+		<h2>Part 4</h2>
+		<p>
+			Below are 3 screenshots across the simulation lifecycle showing the cloth self colliding as it reaches its final resting state.
+		</p>
+		<figure>
+			<img src="./p4/4_1.png" align="middle" width = "380px"/>
+			<figcaption>Near beginning self collision starts occuring<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/4_2.png" align="middle" width = "380px"/>
+			<figcaption>Mid life cycle<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/4_3.png" align="middle" width = "380px"/>
+			<figcaption>Final state<figcaption>
+		</figure>
+
+		<p>
+			As we vary the ks, you’ll notice the higher ks value seems to be more rigid and flatter at its resting point. On the other hand for the lower ks value the cloth has more perturbations and is folded in on itself relatively more.
+		</p>
+		<figure>
+			<img src="./p4/4_high_ks.png" align="middle" width = "380px"/>
+			<figcaption>High ks (50000N/m)<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/4_low_ks.png" align="middle" width = "380px"/>
+			<figcaption>High ks (500N/m)<figcaption>
+		</figure>
+		<p>
+			For high density values, the cloth seems to end up flatter, likely due to having greater mass. For lower density we notice the cloth is more voluminous and less crushed down by gravity since there are less point masses.
+		</p>
+		<figure>
+			<img src="./p4/4_high_dense.png" align="middle" width = "380px"/>
+			<figcaption>High density (500m/g^2)<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/4_low_dense.png" align="middle" width = "380px"/>
+			<figcaption>High density (1g/m^2)<figcaption>
+		</figure>
+
+
+
+		<h2>Part 5</h2>
+		<p>
+			A shader program is a computationally inexpensive way to render things realistically. The vertex shader processes the vertices of our mesh computing lighting effects on vertex normals, it assigns attributes to vertices in the scene and transforms the scene into normalized device coordinates. The fragment shader determines an RGB-alpha vector for every pixel on the display by utilizing interpolated vertex data. Manipulation of data from vertex attributes occurs within the fragment shader, leading to the creation of various material effects.
+		</p>
+		<p>
+			The Blinn Phong model splits the lighting into three types, ambient, diffuse, and specular. Firstly, ambient is the uniform illumination across the surface from scattered environmental light. The diffuse reflection is the light scattered evenly in all directions upon hitting the surface, determining base color. Finally, specular reflection concentrates on the highlights from light reflecting off the surface, adding shininess or glossiness to our render. Below we see the break up of Blinn Phong by these three components.
+		</p>
+		<figure>
+			<img src="./p4/5_ambient.png" align="middle" width = "380px"/>
+			<figcaption>Ambient<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/5_diffuse.png" align="middle" width = "380px"/>
+			<figcaption>Diffuse<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/5_specular.png" align="middle" width = "380px"/>
+			<figcaption>Specular<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/5_phong.png" align="middle" width = "380px"/>
+			<figcaption>Full Blinn-Phong shading<figcaption>
+		</figure>
+
+		<p>
+			Below is an image that uses a custom texture.
+		</p>
+		<figure>
+			<img src="./p4/5_texture.png" align="middle" width = "380px"/>
+			<figcaption>Custom wave texture<figcaption>
+		</figure>
+		
+		<p>
+			Bump and displacement mapping both are used to add surface details without changing the geometry of the mesh.
+			<br/>
+			<br/>
+			Bump mapping works by creating small perturbations on the surface normals of the mesh. This then changes how light interacts with the surface without actually changing its geometry.
+			<br/>
+			<br/>
+			Displacement mapping instead does the opposite approach by directly affecting the surface geometry.
+			<br/>
+			<br/>
+			When comparing the two I notice a slightly greater bumpiness in the displacement shading. This makes sense since the actual geometry of the surface is being affected. Below are two comparison pictures notice the silhouette of the displacement sphere.
+		</p>
+		<figure>
+			<img src="./p4/5_bump.png" align="middle" width = "380px"/>
+			<figcaption>Bump Shading<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/5_displace.png" align="middle" width = "380px"/>
+			<figcaption>Displacement Shading<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/5_bump_rest.png" align="middle" width = "380px"/>
+			<figcaption>Bump shading after the cloth has come to a rest<figcaption>
+		</figure>
+		<p>
+			Next I analyzed the effects of changing the coarseness of the rendering. When I rendered it bumping (between high and low coarseness) seemed to not have much difference. However, with displacement, there was an obvious difference in the silhouette of the sphere. At higher coarseness it seemed much smoother and closer to the true sphere shape while still having the textured effect.
+		</p>
+		
+		<figure>
+			<img src="./p4/5_bump_16.png" align="middle" width = "380px"/>
+			<figcaption>Bump shading lower coarseness<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/5_bump_coarse.png" align="middle" width = "380px"/>
+			<figcaption>Bump shading higher coarseness<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/5_displacement_16.png" align="middle" width = "380px"/>
+			<figcaption>Displacement shading lower coarseness<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/5_displacement_coarse.png" align="middle" width = "380px"/>
+			<figcaption>Displacement shading higher coarseness<figcaption>
+		</figure>
+		
+		<p>
+			Below are two images showing the mirror shader
+		</p>
+		<figure>
+			<img src="./p4/5_mirror.png" align="middle" width = "380px"/>
+			<figcaption>Mirror shader<figcaption>
+		</figure>
+		<figure>
+			<img src="./p4/5_mirror_rest.png" align="middle" width = "380px"/>
+			<figcaption>Mirror shader after cloth come to rest<figcaption>
+		</figure>
+		
+
+
+		
+
 	</body>
 </html>
